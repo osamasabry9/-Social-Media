@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_conditional_rendering/flutter_conditional_rendering.dart';
+import 'package:social_media/layout/soical_layout.dart';
 
 import 'package:social_media/modules/pages/01_account/login/cubit/cubit.dart';
 import 'package:social_media/modules/pages/01_account/login/cubit/states.dart';
@@ -39,10 +40,10 @@ class LoginScreen extends StatelessWidget {
                 text: 'Login Success',
                 state: ToastStates.SUCCESS,
               );
-              // navigateAndFinish(
-              //   context,
-              //   SocialLayout(),
-              // );
+              navigateAndFinish(
+                context,
+                const SocialLayout(),
+              );
             });
           }
         },
@@ -111,6 +112,7 @@ class LoginScreen extends StatelessWidget {
                               return 'password is too short';
                             }
                           },
+
                           label: 'Password',
                           prefix: Icons.lock_outline,
                         ),

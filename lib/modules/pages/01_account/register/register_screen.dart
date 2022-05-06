@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_conditional_rendering/flutter_conditional_rendering.dart';
+import 'package:social_media/layout/soical_layout.dart';
 import 'package:social_media/modules/pages/01_account/register/cubit/cubit.dart';
 import 'package:social_media/modules/pages/01_account/register/cubit/states.dart';
 import 'package:social_media/shared/adaptive/adaptive_indicator.dart';
@@ -36,10 +37,10 @@ class RegisterScreen extends StatelessWidget {
                 text: 'Welcome in Social App',
                 state: ToastStates.SUCCESS,
               );
-              // navigateAndFinish(
-              //   context,
-              //   SocialLayout(),
-              // );
+              navigateAndFinish(
+                context,
+                const SocialLayout(),
+              );
             });
           }
         },
