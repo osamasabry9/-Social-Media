@@ -11,7 +11,7 @@ class AppImages {
   // static const PASSWORD = "assets/images/password.gif";
 
   /// INTRO
-  static const INTRO_1 = "assets/images/int1.gif";
+  static const INTRO_1 = "assets/images/int3.gif";
   static const INTRO_2 = 'assets/images/int2.gif';
-  static const INTRO_3 = 'assets/images/int3.gif';
+  static const INTRO_3 = 'assets/images/int1.gif';
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:social_media/modules/pages/01_account/login_screen.dart';
-import 'package:social_media/shared/components/componets.dart';
+import 'package:social_media/modules/pages/01_account/login/login_screen.dart';
+import 'package:social_media/shared/components/components.dart';
 import 'package:social_media/shared/config/app_colors.dart';
 import 'package:social_media/shared/config/app_data.dart';
 import 'package:social_media/shared/network/local/cache_helper.dart';
@@ -27,7 +27,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               onPressed: () {
                 CacheHelper.saveData(key: 'ShowOnBoard', value: false)
                     .then((value) {
-                  if (value) navigateAndFinish(context, const LoginPage());
+                  if (value) navigateAndFinish(context,  LoginScreen());
                 });
               },
               child: const Text(
@@ -82,7 +82,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       CacheHelper.saveData(key: 'ShowOnBoard', value: false)
                           .then((value) {
                         if (value) {
-                          navigateAndFinish(context, const LoginPage());
+                          navigateAndFinish(context,  LoginScreen());
                         }
                       });
                     } else {
