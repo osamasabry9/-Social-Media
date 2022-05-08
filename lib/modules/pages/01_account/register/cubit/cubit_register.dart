@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_media/models/user_model.dart';
 
-import 'package:social_media/modules/pages/01_account/register/cubit/states.dart';
+import 'package:social_media/modules/pages/01_account/register/cubit/states_register.dart';
 
 class SocialRegisterCubit extends Cubit<SocialRegisterStates> {
   SocialRegisterCubit() : super(SocialRegisterInitialState());
@@ -22,7 +22,7 @@ class SocialRegisterCubit extends Cubit<SocialRegisterStates> {
     FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: password)
         .then((value) {
-          emit(SocialRegisterSuccessState());
+          //emit(SocialRegisterSuccessState());
       userCreate(
         name: name,
         email: email,

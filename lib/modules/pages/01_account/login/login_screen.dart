@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_conditional_rendering/flutter_conditional_rendering.dart';
 import 'package:social_media/layout/soical_layout.dart';
 
-import 'package:social_media/modules/pages/01_account/login/cubit/cubit.dart';
-import 'package:social_media/modules/pages/01_account/login/cubit/states.dart';
+import 'package:social_media/modules/pages/01_account/login/cubit/cubit_login.dart';
+import 'package:social_media/modules/pages/01_account/login/cubit/states_login.dart';
 import 'package:social_media/modules/pages/01_account/register/register_screen.dart';
 import 'package:social_media/shared/adaptive/adaptive_indicator.dart';
 import 'package:social_media/shared/components/components.dart';
