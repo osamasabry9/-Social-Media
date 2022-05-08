@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:social_media/layout/cubit/cubit_app.dart';
-import 'package:social_media/layout/social_layout.dart';
 import 'package:social_media/modules/pages/01_account/login/login_screen.dart';
 import 'package:social_media/shared/bloc_observer.dart';
 import 'package:social_media/shared/components/constants.dart';
@@ -11,7 +10,7 @@ import 'package:social_media/shared/cubit/cubit.dart';
 import 'package:social_media/shared/cubit/states.dart';
 import 'package:social_media/shared/styles/themes.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
-
+import 'package:social_media/layout/app_layout.dart';
 import 'shared/network/local/cache_helper.dart';
 
 Future<void> main() async {

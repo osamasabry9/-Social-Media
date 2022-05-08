@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_conditional_rendering/flutter_conditional_rendering.dart';
-import 'package:social_media/layout/social_layout.dart';
+import 'package:social_media/layout/app_layout.dart';
 import 'package:social_media/modules/pages/01_account/register/cubit/cubit_register.dart';
 import 'package:social_media/modules/pages/01_account/register/cubit/states_register.dart';
 import 'package:social_media/shared/adaptive/adaptive_indicator.dart';
