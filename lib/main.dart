@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:social_media/layout/cubit/cubit_app.dart';
-import 'package:social_media/layout/soical_layout.dart';
+import 'package:social_media/layout/social_layout.dart';
 import 'package:social_media/modules/pages/01_account/login/login_screen.dart';
 import 'package:social_media/shared/bloc_observer.dart';
 import 'package:social_media/shared/components/constants.dart';
