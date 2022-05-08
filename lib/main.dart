@@ -2,8 +2,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:social_media/modules/pages/00_intro/onboarding_screen.dart';
+import 'package:social_media/layout/cubit/cubit_app.dart';
+import 'package:social_media/layout/soical_layout.dart';
+import 'package:social_media/modules/pages/01_account/login/login_screen.dart';
 import 'package:social_media/shared/bloc_observer.dart';
+import 'package:social_media/shared/components/constants.dart';
 import 'package:social_media/shared/cubit/cubit.dart';
 import 'package:social_media/shared/cubit/states.dart';
 import 'package:social_media/shared/styles/themes.dart';
@@ -16,7 +19,13 @@ Future<void> main() async {
   await Firebase.initializeApp();
   await CacheHelper.init();
   bool? isDark = CacheHelper.getData(key: 'isDark');
-  Widget? widget = const OnboardingScreen();
+  Widget? widget;
+  uId = CacheHelper.getData(key: 'uId');
+  if (uId != null) {
+    widget = const SocialLayout();
+  } else {
+    widget = LoginScreen();
+  }
 
   BlocOverrides.runZoned(
     () {
@@ -49,11 +58,11 @@ class MyApp extends StatelessWidget {
                    fromShared: isDark!,
                   ),
           ),
-          // BlocProvider(
-          //   create: (BuildContext context) => SocialCubit()
-          //     ..getUserData()
-          //     ..getPosts(),
-          // ),
+          BlocProvider(
+            create: (BuildContext context) => SocialAppCubit()
+              ..getUserData(),
+
+          ),
         ],
         child: BlocConsumer<AppCubit, AppStates>(
           listener: (context, state) {},
