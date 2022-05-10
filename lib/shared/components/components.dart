@@ -7,13 +7,14 @@ import 'package:social_media/shared/styles/icon_broken.dart';
 Widget defaultButton(
         {Color background = defaultColor,
         double width = double.infinity,
+          double height = 50,
         double radius = 0.0,
         required Function function,
         required String text,
         bool isUpperCase = true}) =>
     Container(
       width: width,
-      height: 50,
+      height: height,
       decoration: BoxDecoration(
           color: background, borderRadius: BorderRadius.circular(radius)),
       child: MaterialButton(

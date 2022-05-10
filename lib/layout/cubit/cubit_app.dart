@@ -7,6 +7,7 @@ import 'package:social_media/modules/pages/02_feeds/feeds_screen.dart';
 import 'package:social_media/modules/pages/04_chats/chats_screen.dart';
 import 'package:social_media/modules/pages/06_settings/settings_screen.dart';
 import 'package:social_media/modules/pages/07_users/users_screen.dart';
+import 'package:social_media/modules/pages/10_new_post/new_post_screen.dart';
 
 import '../../shared/components/constants.dart';
 
@@ -33,6 +34,7 @@ int currentIndex = 0;
  List<Widget> screens = const[
    FeedsScreen(),
    ChatsScreen(),
+   NewPostScreen(),
    UsersScreen(),
    SettingsScreen(),
  ];
@@ -50,6 +52,7 @@ int currentIndex = 0;
 List<String> titles = [
   'Home',
   'Chats',
+  'New Post',
   'Users',
   'Settings'
 ];

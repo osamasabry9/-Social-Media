@@ -35,6 +35,7 @@ class FeedsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              //image and name and date
               Row(
                 children: [
                   const CircleAvatar(
@@ -98,6 +99,7 @@ class FeedsScreen extends StatelessWidget {
                   ),
                 ],
               ),
+              // drawing line  between post and info about user and post
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 15.0),
                 child: Container(
@@ -106,10 +108,12 @@ class FeedsScreen extends StatelessWidget {
                   color: Colors.grey[300],
                 ),
               ),
+              // The body of a text post
               Text(
                 "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.",
                 style: Theme.of(context).textTheme.subtitle1,
               ),
+              // The body of a text post (hashtag)
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: SizedBox(
@@ -201,6 +205,7 @@ class FeedsScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              // The body of a image post
               Container(
                 height: 200,
                 width: double.infinity,
@@ -213,6 +218,7 @@ class FeedsScreen extends StatelessWidget {
                       fit: BoxFit.cover,
                     )),
               ),
+              // shapes and numbers of likes and comments
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 5.0),
                 child: Row(
@@ -269,11 +275,13 @@ class FeedsScreen extends StatelessWidget {
                   ],
                 ),
               ),
+              // drawing line
               Container(
                 width: double.infinity,
                 height: 1.0,
                 color: Colors.grey[300],
               ),
+              // add comment and like and share
               Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: Row(
