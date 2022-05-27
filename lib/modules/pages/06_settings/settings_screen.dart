@@ -22,7 +22,7 @@ class SettingsScreen extends StatelessWidget {
           child: Column(
             children: [
               // images caver and profile
-              firstBarProfile(userModel ,context ),
+              firstBarProfile(userModel, context),
               const SizedBox(
                 height: 5,
               ),
@@ -126,7 +126,7 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   OutlinedButton(
                     onPressed: () {
-                      navigateTo(context,  EditProfileScreen());
+                      navigateTo(context, EditProfileScreen());
                     },
                     child: const Icon(
                       IconBroken.Edit,
@@ -142,9 +142,7 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
-
-  Widget firstBarProfile(SocialUserModel? userdata ,context )
-  {
+  Widget firstBarProfile(SocialUserModel? userdata, context) {
     return SizedBox(
       height: 190,
       child: Stack(
@@ -172,8 +170,7 @@ class SettingsScreen extends StatelessWidget {
           //  image profile
           CircleAvatar(
             radius: 63,
-            backgroundColor:
-            Theme.of(context).scaffoldBackgroundColor,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             child: CircleAvatar(
               radius: 60,
               backgroundImage: NetworkImage(
