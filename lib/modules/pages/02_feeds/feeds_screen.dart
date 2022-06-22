@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_media/layout/cubit/cubit_app.dart';
+import 'package:social_media/layout/cubit/states_app.dart';
+import 'package:social_media/models/post_model.dart';
 
 import '../../../shared/styles/icon_broken.dart';
 
@@ -7,23 +11,35 @@ class FeedsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      child: Column(
-        children: [
-          ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) => buildCardPost(context),
-            itemCount: 10,
-          ),
-          const SizedBox(height: 8,),
-        ],
-      ),
+    return BlocConsumer<SocialAppCubit, SocialAppStates>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        return SocialAppCubit.get(context).posts.isNotEmpty && SocialAppCubit.get(context).userModel != null
+            ? SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Column(
+                  children: [
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) => buildCardPost(
+                          SocialAppCubit.get(context).posts[index],
+                          index,
+                          context),
+                      itemCount: SocialAppCubit.get(context).posts.length,
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                  ],
+                ),
+              )
+            : const Center(child: CircularProgressIndicator());
+      },
     );
   }
 
-  Widget buildCardPost(BuildContext context) {
+  Widget buildCardPost(PostModel model, index, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
       child: Card(
@@ -33,15 +49,14 @@ class FeedsScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               //image and name and date
               Row(
                 children: [
-                  const CircleAvatar(
+                  CircleAvatar(
                     radius: 25,
-                    backgroundImage: NetworkImage(
-                        'https://img.freepik.com/free-photo/looking-side-young-handsome-male-student-wearing-back-bag-holding-books-speaks-loudspeaker_141793-96480.jpg?t=st=1651983279~exp=1651983879~hmac=7e0673dd0d2815c120448236275e07680541c715d7c1962103e4e225f4819973&w=740'),
+                    backgroundImage: NetworkImage(model.image),
                   ),
                   const SizedBox(
                     width: 15,
@@ -57,7 +72,7 @@ class FeedsScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
-                                  'Osama Sabry',
+                                  model.name,
                                   style: Theme.of(context)
                                       .textTheme
                                       .subtitle1!
@@ -77,7 +92,7 @@ class FeedsScreen extends StatelessWidget {
                               height: 5.0,
                             ),
                             Text(
-                              'May 8, 2022 at 7:05 AM',
+                              model.dateTime,
                               style: Theme.of(context)
                                   .textTheme
                                   .caption!
@@ -110,114 +125,119 @@ class FeedsScreen extends StatelessWidget {
               ),
               // The body of a text post
               Text(
-                "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.",
+                model.text,
                 style: Theme.of(context).textTheme.subtitle1,
               ),
-              // The body of a text post (hashtag)
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: Wrap(
-                    spacing: 5,
-                    children: [
-                      SizedBox(
-                        height: 25,
-                        child: MaterialButton(
-                          onPressed: () {},
-                          child: Text(
-                            '#Software',
-                            style:
-                                Theme.of(context).textTheme.caption!.copyWith(
-                                      color: Colors.blue,
-                                    ),
+
+// The body of a text post (hashtag)
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(vertical: 8.0),
+              //   child: SizedBox(
+              //     width: double.infinity,
+              //     child: Wrap(
+              //       spacing: 5,
+              //       children: [
+              //         SizedBox(
+              //           height: 25,
+              //           child: MaterialButton(
+              //             onPressed: () {},
+              //             child: Text(
+              //               '#Software',
+              //               style:
+              //                   Theme.of(context).textTheme.caption!.copyWith(
+              //                         color: Colors.blue,
+              //                       ),
+              //             ),
+              //             minWidth: 1,
+              //             height: 25,
+              //             padding: EdgeInsets.zero,
+              //           ),
+              //         ),
+              //         SizedBox(
+              //           height: 25,
+              //           child: MaterialButton(
+              //             onPressed: () {},
+              //             child: Text(
+              //               '#Software',
+              //               style:
+              //                   Theme.of(context).textTheme.caption!.copyWith(
+              //                         color: Colors.blue,
+              //                       ),
+              //             ),
+              //             minWidth: 1,
+              //             height: 25,
+              //             padding: EdgeInsets.zero,
+              //           ),
+              //         ),
+              //         SizedBox(
+              //           height: 25,
+              //           child: MaterialButton(
+              //             onPressed: () {},
+              //             child: Text(
+              //               '#Software',
+              //               style:
+              //                   Theme.of(context).textTheme.caption!.copyWith(
+              //                         color: Colors.blue,
+              //                       ),
+              //             ),
+              //             minWidth: 1,
+              //             height: 25,
+              //             padding: EdgeInsets.zero,
+              //           ),
+              //         ),
+              //         SizedBox(
+              //           height: 25,
+              //           child: MaterialButton(
+              //             onPressed: () {},
+              //             child: Text(
+              //               '#Software',
+              //               style:
+              //                   Theme.of(context).textTheme.caption!.copyWith(
+              //                         color: Colors.blue,
+              //                       ),
+              //             ),
+              //             minWidth: 1,
+              //             height: 25,
+              //             padding: EdgeInsets.zero,
+              //           ),
+              //         ),
+              //         SizedBox(
+              //           height: 25,
+              //           child: MaterialButton(
+              //             onPressed: () {},
+              //             child: Text(
+              //               '#Software_development',
+              //               style:
+              //                   Theme.of(context).textTheme.caption!.copyWith(
+              //                         color: Colors.blue,
+              //                       ),
+              //             ),
+              //             minWidth: 1,
+              //             height: 25,
+              //             padding: EdgeInsets.zero,
+              //           ),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
+              if (model.postImage != '')
+                // The body of a image post
+                Padding(
+                  padding: const EdgeInsets.only(top: 15),
+                  child: Container(
+                    height: 200,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        image: DecorationImage(
+                          image: NetworkImage(
+                            model.postImage,
                           ),
-                          minWidth: 1,
-                          height: 25,
-                          padding: EdgeInsets.zero,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 25,
-                        child: MaterialButton(
-                          onPressed: () {},
-                          child: Text(
-                            '#Software',
-                            style:
-                                Theme.of(context).textTheme.caption!.copyWith(
-                                      color: Colors.blue,
-                                    ),
-                          ),
-                          minWidth: 1,
-                          height: 25,
-                          padding: EdgeInsets.zero,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 25,
-                        child: MaterialButton(
-                          onPressed: () {},
-                          child: Text(
-                            '#Software',
-                            style:
-                                Theme.of(context).textTheme.caption!.copyWith(
-                                      color: Colors.blue,
-                                    ),
-                          ),
-                          minWidth: 1,
-                          height: 25,
-                          padding: EdgeInsets.zero,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 25,
-                        child: MaterialButton(
-                          onPressed: () {},
-                          child: Text(
-                            '#Software',
-                            style:
-                                Theme.of(context).textTheme.caption!.copyWith(
-                                      color: Colors.blue,
-                                    ),
-                          ),
-                          minWidth: 1,
-                          height: 25,
-                          padding: EdgeInsets.zero,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 25,
-                        child: MaterialButton(
-                          onPressed: () {},
-                          child: Text(
-                            '#Software_development',
-                            style:
-                                Theme.of(context).textTheme.caption!.copyWith(
-                                      color: Colors.blue,
-                                    ),
-                          ),
-                          minWidth: 1,
-                          height: 25,
-                          padding: EdgeInsets.zero,
-                        ),
-                      ),
-                    ],
+                          fit: BoxFit.cover,
+                        )),
                   ),
                 ),
-              ),
-              // The body of a image post
-              Container(
-                height: 200,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    image: const DecorationImage(
-                      image: NetworkImage(
-                        'https://img.freepik.com/free-photo/showing-tablet-s-blank-screen_155003-21288.jpg?size=626&ext=jpg',
-                      ),
-                      fit: BoxFit.cover,
-                    )),
-              ),
               // shapes and numbers of likes and comments
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 5.0),
@@ -225,7 +245,10 @@ class FeedsScreen extends StatelessWidget {
                   children: [
                     Expanded(
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          SocialAppCubit.get(context).likePost(
+                              SocialAppCubit.get(context).postsId[index]);
+                        },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 5.0),
                           child: Row(
@@ -239,7 +262,7 @@ class FeedsScreen extends StatelessWidget {
                                 width: 5,
                               ),
                               Text(
-                                '1026',
+                                '0',
                                 style: Theme.of(context).textTheme.caption,
                               ),
                             ],
@@ -264,7 +287,7 @@ class FeedsScreen extends StatelessWidget {
                                 width: 5,
                               ),
                               Text(
-                                '132 Comment',
+                                '0 Comment',
                                 style: Theme.of(context).textTheme.caption,
                               ),
                             ],
@@ -290,10 +313,10 @@ class FeedsScreen extends StatelessWidget {
                       child: InkWell(
                         child: Row(
                           children: [
-                            const CircleAvatar(
+                            CircleAvatar(
                               radius: 18,
                               backgroundImage: NetworkImage(
-                                  'https://img.freepik.com/free-photo/looking-side-young-handsome-male-student-wearing-back-bag-holding-books-speaks-loudspeaker_141793-96480.jpg?t=st=1651983279~exp=1651983879~hmac=7e0673dd0d2815c120448236275e07680541c715d7c1962103e4e225f4819973&w=740'),
+                                  SocialAppCubit.get(context).userModel!.image),
                             ),
                             const SizedBox(
                               width: 15,

@@ -73,7 +73,7 @@ class NewPostScreen extends StatelessWidget {
                   child: TextFormField(
                     controller: textController,
                     decoration: const InputDecoration(
-                      hintText: 'What\'s on your mind?',
+                      hintText: 'What\'s on your mind ?',
                       border: InputBorder.none,
                     ),
                   ),

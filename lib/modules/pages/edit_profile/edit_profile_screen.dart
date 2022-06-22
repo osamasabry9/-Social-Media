@@ -17,7 +17,7 @@ class EditProfileScreen extends StatelessWidget {
     return BlocConsumer<SocialAppCubit, SocialAppStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        var userModel = SocialAppCubit.get(context).model;
+        var userModel = SocialAppCubit.get(context).userModel;
         var profileImage = SocialAppCubit.get(context).profileImage;
         var coverImage = SocialAppCubit.get(context).coverImage;
         controllerName.text = userModel!.name;
@@ -132,43 +132,57 @@ class EditProfileScreen extends StatelessWidget {
                   const SizedBox(
                     height: 15,
                   ),
-                  if(profileImage != null || coverImage != null)
+                  if (profileImage != null || coverImage != null)
                     const SizedBox(
-                    height: 15,
-                  ),
-                  if(profileImage != null || coverImage != null)
+                      height: 15,
+                    ),
+                  if (profileImage != null || coverImage != null)
                     Row(
                       children: [
-                        if(profileImage != null )
-                         Expanded(child: Column(
-                           children: [
-                             defaultButton(function: (){
-                               SocialAppCubit.get(context).uploadProfileImage(
-                                   name: controllerName.text,
-                                   bio: controllerBio.text,
-                                   phone: controllerPhone.text,);
-                             }, text: 'Update Profile'),
-                             const SizedBox(height: 5,),
-                             if (state is SocialAppUserUploadLoadingState)
-                              const LinearProgressIndicator(),
-                           ],
-                         )),
-                        if(profileImage != null )
-                          const SizedBox(
-                          width: 5,
-                        ),
-                        if(coverImage != null )
-                          Expanded(child: Column(
+                        if (profileImage != null)
+                          Expanded(
+                              child: Column(
                             children: [
-                              defaultButton(function: (){
-                                SocialAppCubit.get(context).uploadCoverImage(
-                                  name: controllerName.text,
-                                  bio: controllerBio.text,
-                                  phone: controllerPhone.text,);
-                              }, text: 'Update Cover'),
-                              const SizedBox(height: 5,),
+                              defaultButton(
+                                  function: () {
+                                    SocialAppCubit.get(context)
+                                        .uploadProfileImage(
+                                      name: controllerName.text,
+                                      bio: controllerBio.text,
+                                      phone: controllerPhone.text,
+                                    );
+                                  },
+                                  text: 'Update Profile'),
+                              const SizedBox(
+                                height: 5,
+                              ),
                               if (state is SocialAppUserUploadLoadingState)
-                               const LinearProgressIndicator(),
+                                const LinearProgressIndicator(),
+                            ],
+                          )),
+                        if (profileImage != null)
+                          const SizedBox(
+                            width: 5,
+                          ),
+                        if (coverImage != null)
+                          Expanded(
+                              child: Column(
+                            children: [
+                              defaultButton(
+                                  function: () {
+                                    SocialAppCubit.get(context)
+                                        .uploadCoverImage(
+                                      name: controllerName.text,
+                                      bio: controllerBio.text,
+                                      phone: controllerPhone.text,
+                                    );
+                                  },
+                                  text: 'Update Cover'),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              if (state is SocialAppUserUploadLoadingState)
+                                const LinearProgressIndicator(),
                             ],
                           )),
                       ],

@@ -16,11 +16,9 @@ class SocialLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<SocialAppCubit, SocialAppStates>(
       listener: (context, state) {
-        if(state is SocialNewPostState)
-          {
-            navigateTo(context,  NewPostScreen());
-          }
-
+        if (state is SocialNewPostState) {
+          navigateTo(context, NewPostScreen());
+        }
       },
       builder: (context, state) {
         var cubit = SocialAppCubit.get(context);
@@ -43,7 +41,7 @@ class SocialLayout extends StatelessWidget {
                   //cubit.logOut(context);
                 },
               ),
-              cubit.model != null
+              cubit.userModel != null
                   ? InkWell(
                       onTap: () {
                         //navigateTo(context, EditProfileScreen());
@@ -52,7 +50,7 @@ class SocialLayout extends StatelessWidget {
                         radius: 18,
                         child: CircleAvatar(
                           radius: 17,
-                          backgroundImage: NetworkImage(cubit.model!.image),
+                          backgroundImage: NetworkImage(cubit.userModel!.image),
                         ),
                       ),
                     )
@@ -66,7 +64,7 @@ class SocialLayout extends StatelessWidget {
               ),
             ],
           ),
-          body: cubit.model != null
+          body: cubit.userModel != null
               ? SingleChildScrollView(
                   child: Column(
                     children: [

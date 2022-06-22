@@ -75,3 +75,30 @@ class SocialPostImagePackerErrorState extends SocialAppStates {
 
   SocialPostImagePackerErrorState(this.error);
 }
+
+//------------Get Post States----------------
+class SocialAppGetPostLoadingState extends SocialAppStates {}
+class SocialAppGetPostSuccessState extends SocialAppStates {}
+class SocialAppGetPostErrorState extends SocialAppStates {
+  final String error;
+
+  SocialAppGetPostErrorState(this.error);
+}
+
+//------------Like Post States----------------
+class SocialAppLikePostLoadingState extends SocialAppStates {}
+class SocialAppLikePostSuccessState extends SocialAppStates {}
+class SocialAppLikePostErrorState extends SocialAppStates {
+  final String error;
+
+  SocialAppLikePostErrorState(this.error);
+}
+
+//------------Comment Post States----------------
+class SocialAppCommentPostLoadingState extends SocialAppStates {}
+class SocialAppCommentPostSuccessState extends SocialAppStates {}
+class SocialAppCommentPostErrorState extends SocialAppStates {
+  final String error;
+
+  SocialAppCommentPostErrorState(this.error);
+}

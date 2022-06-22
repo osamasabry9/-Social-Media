@@ -9,8 +9,6 @@ import 'package:social_media/shared/components/components.dart';
 import 'package:social_media/shared/components/constants.dart';
 import 'package:social_media/shared/network/local/cache_helper.dart';
 
-
-
 class RegisterScreen extends StatelessWidget {
   var formKey = GlobalKey<FormState>();
   var nameController = TextEditingController();
@@ -58,15 +56,17 @@ class RegisterScreen extends StatelessWidget {
                       children: [
                         Text(
                           'REGISTER',
-                          style: Theme.of(context).textTheme.headline4!.copyWith(
-                                color: Colors.black,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.headline4!.copyWith(
+                                    color: Colors.black,
+                                  ),
                         ),
                         Text(
                           'Register now to communicate with friends',
-                          style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                                color: Colors.grey,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodyText1!.copyWith(
+                                    color: Colors.grey,
+                                  ),
                         ),
                         const SizedBox(
                           height: 30.0,
@@ -74,7 +74,7 @@ class RegisterScreen extends StatelessWidget {
                         defaultFormField(
                           controller: nameController,
                           keyboardType: TextInputType.name,
-                          validate: (String ?value) {
+                          validate: (String? value) {
                             if (value!.isEmpty) {
                               return 'please enter your name';
                             }
@@ -110,7 +110,7 @@ class RegisterScreen extends StatelessWidget {
                             SocialRegisterCubit.get(context)
                                 .changePasswordVisibility();
                           },
-                          validate: (String ?value) {
+                          validate: (String? value) {
                             if (value!.isEmpty) {
                               return 'password is too short';
                             }
@@ -124,7 +124,7 @@ class RegisterScreen extends StatelessWidget {
                         defaultFormField(
                           controller: phoneController,
                           keyboardType: TextInputType.phone,
-                          validate: (String ?value) {
+                          validate: (String? value) {
                             if (value!.isEmpty) {
                               return 'please enter your phone number';
                             }
@@ -137,7 +137,8 @@ class RegisterScreen extends StatelessWidget {
                         ),
                         Conditional.single(
                           context: context,
-                          conditionBuilder:(context) =>  state is! SocialRegisterLoadingState,
+                          conditionBuilder: (context) =>
+                              state is! SocialRegisterLoadingState,
                           widgetBuilder: (context) => defaultButton(
                             function: () {
                               if (formKey.currentState!.validate()) {
@@ -152,11 +153,10 @@ class RegisterScreen extends StatelessWidget {
                             text: 'register',
                             isUpperCase: true,
                           ),
-                          fallbackBuilder: (context) =>
-                              Center(
-                                  child: AdaptiveIndicator(
-                                    os: getOS(),
-                                  )),
+                          fallbackBuilder: (context) => Center(
+                              child: AdaptiveIndicator(
+                            os: getOS(),
+                          )),
                         ),
                       ],
                     ),
