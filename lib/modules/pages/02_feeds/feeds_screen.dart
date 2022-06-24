@@ -14,7 +14,8 @@ class FeedsScreen extends StatelessWidget {
     return BlocConsumer<SocialAppCubit, SocialAppStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        return SocialAppCubit.get(context).posts.isNotEmpty && SocialAppCubit.get(context).userModel != null
+        return SocialAppCubit.get(context).posts.length > 0 &&
+                SocialAppCubit.get(context).userModel != null
             ? SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 child: Column(
@@ -262,7 +263,7 @@ class FeedsScreen extends StatelessWidget {
                                 width: 5,
                               ),
                               Text(
-                                '0',
+                                '${SocialAppCubit.get(context).likes[index]}',
                                 style: Theme.of(context).textTheme.caption,
                               ),
                             ],

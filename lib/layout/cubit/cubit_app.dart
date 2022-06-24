@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:social_media/layout/cubit/states_app.dart';
+import 'package:social_media/models/comment_model.dart';
 import 'package:social_media/models/user_model.dart';
 import 'package:social_media/modules/pages/02_feeds/feeds_screen.dart';
 import 'package:social_media/modules/pages/04_chats/chats_screen.dart';
@@ -223,13 +224,21 @@ class SocialAppCubit extends Cubit<SocialAppStates> {
 
   List<PostModel> posts = [];
   List<String> postsId = [];
+  List<int> likes = [];
+
   void getPosts() {
     emit(SocialAppGetPostLoadingState());
     FirebaseFirestore.instance.collection('posts').get().then((value) {
+      posts = [];
       value.docs.forEach(
         (element) {
-          posts.add(PostModel.fromJson(element.data()));
-          postsId.add(element.id);
+          element.reference.collection('likes').get().then((value) {
+            likes.add(value.docs.isEmpty ? 0 : value.docs.length);
+            posts.add(PostModel.fromJson(element.data()));
+            postsId.add(element.id);
+          }).catchError((error) {
+            //print(error.toString());
+          });
         },
       );
       emit(SocialAppGetPostSuccessState());
@@ -253,17 +262,31 @@ class SocialAppCubit extends Cubit<SocialAppStates> {
     });
   }
 
-  void commentPost(String postId) {
+  // create Comment
+
+  void createComment({
+    required String dateTime,
+    required String text,
+    String? postId,
+  }) {
+    emit(SocialAppCommentPostLoadingState());
+
+    CommentModel model = CommentModel(
+      name: userModel!.name,
+      uId: userModel!.uId,
+      dateTime: dateTime,
+      text: text,
+    );
+
     FirebaseFirestore.instance
         .collection('posts')
         .doc(postId)
-        .collection('comments')
+        .collection('comment')
         .doc(userModel!.uId)
-        .set({
-      'comment': true,
-    }).then((value) {
+        .set(model.toMap())
+        .then((value) {
       emit(SocialAppCommentPostSuccessState());
-    }).catchError((onError) {
+    }).catchError((error) {
       emit(SocialAppCommentPostErrorState(onError.toString()));
     });
   }
