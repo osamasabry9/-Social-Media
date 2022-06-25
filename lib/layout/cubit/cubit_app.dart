@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -38,7 +39,7 @@ class SocialAppCubit extends Cubit<SocialAppStates> {
 
   int currentIndex = 0;
   List<Widget> screens = [
-    const FeedsScreen(),
+     FeedsScreen(),
     const ChatsScreen(),
     NewPostScreen(),
     const UsersScreen(),
@@ -261,6 +262,29 @@ class SocialAppCubit extends Cubit<SocialAppStates> {
       emit(SocialAppLikePostSuccessState());
     }).catchError((onError) {
       emit(SocialAppLikePostErrorState(onError.toString()));
+    });
+  }
+
+  Future<void> handleRefresh() {
+    final Completer<void> completer = Completer<void>();
+    Timer(const Duration(seconds: 3), () {
+      completer.complete();
+    });
+    return completer.future.then<void>((_) {
+      FirebaseFirestore.instance.collection('posts').get().then((value) {
+        // posts = [];
+        value.docs.forEach((element) {
+          element.reference.collection('likes').get().then((value) {
+            likes.add(value.docs.length);
+            postsId.add(element.id);
+            posts.add(PostModel.fromJson(element.data()));
+          }).catchError((error) {});
+        });
+        emit(SocialAppGetPostSuccessState());
+      }).catchError((error) {
+        print(error.toString());
+        emit(SocialAppGetPostErrorState(error.toString()));
+      });
     });
   }
 

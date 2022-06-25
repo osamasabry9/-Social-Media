@@ -1,41 +1,93 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_conditional_rendering/flutter_conditional_rendering.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:social_media/layout/cubit/cubit_app.dart';
 import 'package:social_media/layout/cubit/states_app.dart';
 import 'package:social_media/models/post_model.dart';
+import 'package:social_media/shared/adaptive/adaptive_indicator.dart';
+import 'package:social_media/shared/components/constants.dart';
+import 'package:social_media/shared/styles/colors.dart';
 
 import '../../../shared/styles/icon_broken.dart';
 
 class FeedsScreen extends StatelessWidget {
-  const FeedsScreen({Key? key}) : super(key: key);
+  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
+      GlobalKey<LiquidPullToRefreshState>();
+  FeedsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SocialAppCubit, SocialAppStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        return SocialAppCubit.get(context).posts.isNotEmpty &&
-                SocialAppCubit.get(context).userModel != null
-            ? SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: Column(
-                  children: [
-                    ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) => buildCardPost(
-                          SocialAppCubit.get(context).posts[index],
-                          index,
-                          context),
-                      itemCount: SocialAppCubit.get(context).posts.length,
+        return Conditional.single(
+          context: context,
+          conditionBuilder: (context) =>
+              SocialAppCubit.get(context).posts.isNotEmpty &&
+              SocialAppCubit.get(context).userModel != null,
+          fallbackBuilder: (context) => Center(
+            child: AdaptiveIndicator(
+              os: getOS(),
+            ),
+          ),
+          widgetBuilder: (BuildContext context) => LiquidPullToRefresh(
+            key: _refreshIndicatorKey,
+            showChildOpacityTransition: false,
+            onRefresh: SocialAppCubit.get(context).handleRefresh,
+            color: Theme.of(context).scaffoldBackgroundColor,
+            backgroundColor: defaultColor,
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Column(
+                children: [
+                  Card(
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    elevation: 5,
+                    margin: const EdgeInsets.all(
+                      8.0,
                     ),
-                    const SizedBox(
-                      height: 8,
+                    child: Stack(
+                      alignment: AlignmentDirectional.bottomEnd,
+                      children: [
+                        const Image(
+                          image: NetworkImage(
+                            'https://image.freepik.com/free-photo/horizontal-shot-smiling-curly-haired-woman-indicates-free-space-demonstrates-place-your-advertisement-attracts-attention-sale-wears-green-turtleneck-isolated-vibrant-pink-wall_273609-42770.jpg',
+                          ),
+                          fit: BoxFit.cover,
+                          height: 200,
+                          width: double.infinity,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'communicate with friends',
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle1!
+                                .copyWith(color: Colors.white),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              )
-            : const Center(child: CircularProgressIndicator());
+                  ),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) => buildCardPost(
+                        SocialAppCubit.get(context).posts[index],
+                        index,
+                        context),
+                    itemCount: SocialAppCubit.get(context).posts.length,
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
       },
     );
   }
@@ -247,8 +299,8 @@ class FeedsScreen extends StatelessWidget {
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          SocialAppCubit.get(context).likePost(
-                              SocialAppCubit.get(context).postsId[index]);
+                          // SocialAppCubit.get(context).likePost(
+                          //     SocialAppCubit.get(context).postsId[index]);
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 5.0),
@@ -337,7 +389,10 @@ class FeedsScreen extends StatelessWidget {
                     Row(
                       children: [
                         InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            SocialAppCubit.get(context).likePost(
+                                SocialAppCubit.get(context).postsId[index]);
+                          },
                           child: Row(
                             children: [
                               const Icon(
