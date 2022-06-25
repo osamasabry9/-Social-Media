@@ -65,15 +65,7 @@ class SocialLayout extends StatelessWidget {
             ],
           ),
           body: cubit.userModel != null
-              ? SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      if (!FirebaseAuth.instance.currentUser!.emailVerified)
-                        buildContainerEmailVerified(),
-                      cubit.screens[cubit.currentIndex],
-                    ],
-                  ),
-                )
+              ? cubit.screens[cubit.currentIndex]
               : const Center(child: CircularProgressIndicator()),
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: cubit.currentIndex,

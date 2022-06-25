@@ -10,6 +10,14 @@ class SocialAppGetUserErrorState extends SocialAppStates {
 
   SocialAppGetUserErrorState(this.error);
 }
+//------------Get All Users States----------------
+class SocialAppGetAllUsersLoadingState extends SocialAppStates {}
+class SocialAppGetAllUsersSuccessState extends SocialAppStates {}
+class SocialAppGetAllUsersErrorState extends SocialAppStates {
+  final String error;
+
+  SocialAppGetAllUsersErrorState(this.error);
+}
 //------------Bottom States----------------
 class SocialChangeBottomNavState extends SocialAppStates {}
 
@@ -101,4 +109,21 @@ class SocialAppCommentPostErrorState extends SocialAppStates {
   final String error;
 
   SocialAppCommentPostErrorState(this.error);
+}
+
+// Chat
+class SocialAppSendMassageSuccessState extends SocialAppStates {}
+class SocialAppSendMassageErrorState extends SocialAppStates {
+  final String error;
+
+  SocialAppSendMassageErrorState(this.error);
+}
+
+class SocialAppGetMassageLoadingState extends SocialAppStates {}
+
+class SocialAppGetMassageSuccessState extends SocialAppStates {}
+class SocialAppGetMassageErrorState extends SocialAppStates {
+  final String error;
+
+  SocialAppGetMassageErrorState(this.error);
 }
