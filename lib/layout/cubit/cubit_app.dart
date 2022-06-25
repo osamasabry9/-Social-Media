@@ -39,7 +39,7 @@ class SocialAppCubit extends Cubit<SocialAppStates> {
 
   int currentIndex = 0;
   List<Widget> screens = [
-     FeedsScreen(),
+    FeedsScreen(),
     const ChatsScreen(),
     NewPostScreen(),
     const UsersScreen(),
@@ -231,7 +231,7 @@ class SocialAppCubit extends Cubit<SocialAppStates> {
 
   void getPosts() {
     emit(SocialAppGetPostLoadingState());
-    FirebaseFirestore.instance.collection('posts').get().then((value) {
+    FirebaseFirestore.instance.collection('posts').orderBy('dateTime').get().then((value) {
       posts = [];
       value.docs.forEach(
         (element) {
@@ -271,8 +271,8 @@ class SocialAppCubit extends Cubit<SocialAppStates> {
       completer.complete();
     });
     return completer.future.then<void>((_) {
-      FirebaseFirestore.instance.collection('posts').get().then((value) {
-        // posts = [];
+      FirebaseFirestore.instance.collection('posts').orderBy('dateTime').get().then((value) {
+        posts = [];
         value.docs.forEach((element) {
           element.reference.collection('likes').get().then((value) {
             likes.add(value.docs.length);
